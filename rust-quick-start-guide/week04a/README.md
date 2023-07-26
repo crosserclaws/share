@@ -54,7 +54,10 @@ Enum vs Trait
 | Trait Object          | Open         | Slow (vtable) | Object Safety |
 
 Reference
-- [Enum or Trait Object](https://www.possiblerust.com/guide/enum-or-trait-object)
-- [Polymorphism in Rust: Enums vs Traits](https://www.mattkennedy.io/blog/rust_polymorphism/)
-- [Performance implications of `Box<Trait>` vs `enum` delegation](https://users.rust-lang.org/t/performance-implications-of-box-trait-vs-enum-delegation/11957)
-- [trait object](https://zhuanlan.zhihu.com/p/23791817)
+- Course
+  - [Enum or Trait Object](https://www.possiblerust.com/guide/enum-or-trait-object)
+  - [Polymorphism in Rust: Enums vs Traits](https://www.mattkennedy.io/blog/rust_polymorphism/)
+  - [Performance implications of `Box<Trait>` vs `enum` delegation](https://users.rust-lang.org/t/performance-implications-of-box-trait-vs-enum-delegation/11957)
+- Extra
+  - [Keyword dyn](https://doc.rust-lang.org/std/keyword.dyn.html)
+  - [trait object](https://zhuanlan.zhihu.com/p/23791817)
