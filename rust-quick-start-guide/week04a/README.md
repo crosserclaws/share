@@ -61,3 +61,4 @@ Reference
 - Extra
   - [Keyword dyn](https://doc.rust-lang.org/std/keyword.dyn.html)
   - [trait object](https://zhuanlan.zhihu.com/p/23791817)
+  - [RUST 学习笔记 Enum Dispatch](https://yishanhe.net/rust-learning-notes-enum-dispatch/)
