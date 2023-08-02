@@ -15,9 +15,11 @@
 
 ### Answer
 
-Rust 中，宏(Macro) 方便开发者在编译时拓展和生成新代码。
+Rust 中，宏(Macros) 方便开发者在编译期拓展和生成新代码。
+1. 声明宏(Declarative macros): 以声明性的方式定义句法拓展(Syntax Extension)。
+2. 过程宏(Procedural macros): 可对 Rust 句法(Syntax) 进行操作。
 
-本次使用声明宏(declarative macros) 的方式实现
+定义 2 个声明宏
 1. `set`: 简易创建 HashSet 的方式，`vec!` 的 HashSet 版本。
 2. `eval`: 输出表达式的内容和执行结果。
 
