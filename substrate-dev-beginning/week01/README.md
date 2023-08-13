@@ -80,6 +80,8 @@ $ curl -X POST localhost:8000/address/new
   - [antaintan/subx-address][substrate-address-repo]
 - [Substrate Documentation](https://docs.substrate.io/)
   - [Install][substrate-doc-install]
+  - Reference
+    - [Address formats](https://docs.substrate.io/reference/address-formats/)
 
 [substrate-zhihu]: https://zhuanlan.zhihu.com/p/262929418
 [substrate-doc-install]: https://docs.substrate.io/install/
