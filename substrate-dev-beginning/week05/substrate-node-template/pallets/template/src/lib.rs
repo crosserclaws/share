@@ -34,6 +34,8 @@ pub mod pallet {
 		ClaimCreated { who: T::AccountId, claim: T::Hash },
 		/// Event emitted when a claim is revoked by the owner.
 		ClaimRevoked { who: T::AccountId, claim: T::Hash },
+		/// Event emitted when a claim has been transferred.
+		ClaimTransferred { who: T::AccountId, claim: T::Hash, receiver: T::AccountId },
 	}
 
 	#[pallet::error]
@@ -44,6 +46,7 @@ pub mod pallet {
 		NoSuchClaim,
 		/// The claim is owned by another account, so caller can't revoke it.
 		NotClaimOwner,
+		InvalidClaimReceiver,
 	}
 
 	#[pallet::storage]
@@ -95,6 +98,22 @@ pub mod pallet {
 
 			// Emit an event that the claim was erased.
 			Self::deposit_event(Event::ClaimRevoked { who: sender, claim });
+			Ok(())
+		}
+
+		#[pallet::weight(0)]
+		#[pallet::call_index(3)]
+		pub fn transfer_claim(origin: OriginFor<T>, claim: T::Hash, receiver: T::AccountId) -> DispatchResult {
+			let sender = ensure_signed(origin)?;
+			let (owner, _) = Claims::<T>::get(&claim).ok_or(Error::<T>::NoSuchClaim)?;
+			ensure!(sender == owner, Error::<T>::NotClaimOwner);
+			ensure!(sender != receiver, Error::<T>::InvalidClaimReceiver);
+
+			let current_block = <frame_system::Pallet<T>>::block_number();
+			Claims::<T>::insert(&claim, (&receiver, current_block));
+
+			// Emit an event that the claim was erased.
+			Self::deposit_event(Event::ClaimTransferred { who: sender, claim, receiver });
 			Ok(())
 		}
 	}

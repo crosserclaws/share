@@ -63,6 +63,10 @@ Revoke
 
 ### Result
 
+Transfer
+![transfer](img/transfer-01.png "Transfer Claim")
+![transfer-result](img/transfer-02.png "Transfer Claim Result")
+
 
 ## Reference
 
