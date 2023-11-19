@@ -1,2 +1,5 @@
 target/
 tmp*
+
+.pytest_cache
+__pycache__
