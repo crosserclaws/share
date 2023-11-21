@@ -1,0 +1,5 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "rust/rust-introduction-in-action/ch13-async/ex01-write-a-file/Cargo.toml"
+    ]
+}
