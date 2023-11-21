@@ -1,5 +1,5 @@
 [package]
-name = "ex01-write-a-file"
+name = "write"
 version = "0.1.0"
 edition = "2021"
 

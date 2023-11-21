@@ -9,7 +9,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 async fn do_write() -> Result<(), std::io::Error> {
-    let mut file = File::create("foo.txt").await?;
+    let mut file = File::create("target/foo.txt").await?;
     file.write_all(b"Hello World").await?;
     Ok(())
 }
