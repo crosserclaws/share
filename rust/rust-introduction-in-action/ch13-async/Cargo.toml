@@ -3,4 +3,5 @@
 members = [
     "write",
     "read",
+    "timer",
 ]
