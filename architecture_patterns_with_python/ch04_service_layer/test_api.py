@@ -1,6 +1,7 @@
 import uuid
 import pytest
 import requests
+from typing import Any
 
 import config
 
@@ -9,15 +10,15 @@ def random_suffix():
     return uuid.uuid4().hex[:6]
 
 
-def random_sku(name=""):
+def random_sku(name: Any = ""):
     return f"sku-{name}-{random_suffix()}"
 
 
-def random_batchref(name=""):
+def random_batchref(name: Any = ""):
     return f"batch-{name}-{random_suffix()}"
 
 
-def random_orderid(name=""):
+def random_orderid(name: Any = ""):
     return f"order-{name}-{random_suffix()}"
 
 
@@ -49,7 +50,7 @@ def test_allocations_are_persisted(add_stock):
     batch1, batch2 = random_batchref(1), random_batchref(2)
     order1, order2 = random_orderid(1), random_orderid(2)
     add_stock(
-        [(batch1, sku, 10, "2011-01-01"), (batch2, sku, 10, "2011-01-02")]
+        [(batch1, sku, 10, "2011-01-01"), (batch2, sku, 10, "2011-01-02"),]
     )
     line1 = {"orderid": order1, "sku": sku, "qty": 10}
     line2 = {"orderid": order2, "sku": sku, "qty": 10}

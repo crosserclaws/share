@@ -4,7 +4,7 @@ from datetime import date
 from typing import Optional
 
 
-def allocate(line: OrderLine, batches: list[Batch]) -> Batch:
+def allocate(line: OrderLine, batches: list[Batch]) -> str:
     try:
         batch = next(b for b in sorted(batches) if b.can_allocate(line))
         batch.allocate(line)
