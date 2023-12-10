@@ -1,3 +1,6 @@
+from datetime import date
+from typing import Optional
+
 from sqlalchemy.orm import Session
 
 from adapters.repository import AbstractRepository
@@ -20,3 +23,8 @@ def allocate(orderid: str, sku: str, qty: int, repo: AbstractRepository, session
     batchref = model.allocate(line, batches)
     session.commit()
     return batchref
+
+
+def add_batch(ref: str, sku: str, qty: int, eta: Optional[date], repo: AbstractRepository, session: Session) -> None:
+    repo.add(model.Batch(ref, sku, qty, eta))
+    session.commit()
