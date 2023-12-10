@@ -1,5 +1,4 @@
-from datetime import date
-from typing import Iterable, Optional
+from typing import Iterable
 
 import pytest
 
