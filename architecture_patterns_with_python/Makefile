@@ -13,6 +13,9 @@ up:
 down:
 	docker-compose down
 
+ps:
+	docker-compose ps
+
 logs:
 	docker-compose logs app | tail -100
 
