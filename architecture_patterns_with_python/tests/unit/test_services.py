@@ -2,9 +2,9 @@ from typing import Iterable
 
 import pytest
 
-from adapters import repository
-from domain import model
-from service_layer import services
+from allocation.adapters import repository
+from allocation.domain import model
+from allocation.service_layer import services
 
 
 class FakeRepository(repository.AbstractRepository):

@@ -3,8 +3,8 @@ from typing import Optional
 
 from sqlalchemy.orm import Session
 
-from adapters.repository import AbstractRepository
-from domain import model
+from allocation.adapters.repository import AbstractRepository
+from allocation.domain import model
 
 
 class InvalidSku(Exception):

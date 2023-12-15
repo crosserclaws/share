@@ -3,7 +3,7 @@ import pytest
 import requests
 from typing import Any, Optional
 
-import config
+from allocation import config
 
 
 def random_suffix():
