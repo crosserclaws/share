@@ -1,4 +1,5 @@
 import abc
+from typing import Optional
 from sqlalchemy.orm import Session
 
 from allocation.domain import model
@@ -6,28 +7,20 @@ from allocation.domain import model
 
 class AbstractRepository(abc.ABC):
     @abc.abstractmethod
-    def add(self, batch: model.Batch):
+    def add(self, batch: model.Product):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get(self, reference: str) -> model.Batch:
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def list(self) -> list[model.Batch]:
+    def get(self, sku: str) -> model.Product:
         raise NotImplementedError
 
 
 class SqlAlchemyRepository(AbstractRepository):
     def __init__(self, session: Session) -> None:
-        super().__init__()
         self.session = session
 
-    def add(self, batch: model.Batch):
-        self.session.add(batch)
+    def add(self, product: model.Product):
+        self.session.add(product)
 
-    def get(self, reference: str) -> model.Batch:
-        return self.session.query(model.Batch).filter_by(reference=reference).one()
-
-    def list(self) -> list[model.Batch]:
-        return self.session.query(model.Batch).all()
+    def get(self, sku: str) -> Optional[model.Product]:
+        return self.session.query(model.Product).filter_by(sku=sku).first()

@@ -9,22 +9,19 @@ from allocation.service_layer import services, unit_of_work
 
 
 class FakeRepository(repository.AbstractRepository):
-    def __init__(self, batches: Iterable[model.Batch]):
-        self._batches = set(batches)
+    def __init__(self, products: Iterable[model.Product]) -> None:
+        self._products = set(products)
 
-    def add(self, batch: model.Batch):
-        self._batches.add(batch)
+    def add(self, product: model.Product):
+        self._products.add(product)
 
-    def get(self, reference: str):
-        return next(b for b in self._batches if b.reference == reference)
-
-    def list(self):
-        return list(self._batches)
+    def get(self, sku: str) -> typing.Optional[model.Product]:
+        return next((p for p in self._products if p.sku == sku), None)
 
 
 class FakeUnitOfWork(unit_of_work.AbstractUnitOfWork):
     def __init__(self) -> None:
-        self.batches = FakeRepository([])
+        self.products = FakeRepository([])
         self.committed = False
 
     def commit(self):
@@ -32,6 +29,25 @@ class FakeUnitOfWork(unit_of_work.AbstractUnitOfWork):
 
     def rollback(self):
         pass
+
+
+def test_add_batch_for_new_product():
+    uow = FakeUnitOfWork()
+
+    services.add_batch("b1", "OMINOUS-MIRROR", 100, None, uow)
+
+    assert uow.products.get(sku="OMINOUS-MIRROR") is not None
+    assert uow.committed
+
+
+def test_add_batch_for_existing_product():
+    uow = FakeUnitOfWork()
+
+    services.add_batch("b1", "EXIST-MIRROR", 100, None, uow)
+    services.add_batch("b2", "EXIST-MIRROR", 100, None, uow)
+
+    assert "b2" in [b.reference for b in uow.products.get(
+        sku="EXIST-MIRROR").batches]
 
 
 def test_allocate_returns_allocation():
@@ -58,13 +74,4 @@ def test_allocate_commits():
 
     services.allocate("o1", "OMINOUS-MIRROR", 10, uow)
 
-    assert uow.committed
-
-
-def test_add_batch():
-    uow = FakeUnitOfWork()
-
-    services.add_batch("b1", "OMINOUS-MIRROR", 100, None, uow)
-
-    assert uow.batches.get("b1") is not None
     assert uow.committed
