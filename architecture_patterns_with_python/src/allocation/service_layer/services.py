@@ -9,7 +9,7 @@ class InvalidSku(Exception):
     pass
 
 
-def allocate(orderid: str, sku: str, qty: int, uow: unit_of_work.AbstractUnitOfWork) -> str:
+def allocate(orderid: str, sku: str, qty: int, uow: unit_of_work.AbstractUnitOfWork) -> Optional[str]:
     line = model.OrderLine(orderid, sku, qty)
     with uow:
         product = uow.products.get(sku=sku)
