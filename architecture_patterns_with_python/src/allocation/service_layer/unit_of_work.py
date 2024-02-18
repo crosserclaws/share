@@ -7,8 +7,6 @@ from sqlalchemy.orm import sessionmaker
 from allocation import config
 from allocation.adapters import repository
 
-from . import messagebus
-
 
 class AbstractUnitOfWork(abc.ABC):
     products: repository.AbstractRepository
@@ -21,12 +19,11 @@ class AbstractUnitOfWork(abc.ABC):
 
     def commit(self):
         self._commit()
-        self.publish_events()
 
-    def publish_events(self):
+    def collect_new_events(self):
         for product in self.products.seen:
-            for event in product.events:
-                messagebus.handle(event)
+            while product.events:
+                yield product.events.pop(0)
 
     @abc.abstractmethod
     def _commit(self):
